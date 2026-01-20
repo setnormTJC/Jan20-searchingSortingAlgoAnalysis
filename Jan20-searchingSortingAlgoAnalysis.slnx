@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Jan20-searchingSortingAlgoAnalysis/Jan20-searchingSortingAlgoAnalysis.vcxproj" Id="e626faca-6ea6-474a-91de-b6b60f833d26" />
+</Solution>
