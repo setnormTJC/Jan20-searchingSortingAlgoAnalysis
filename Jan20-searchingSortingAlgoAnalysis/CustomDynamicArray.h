@@ -7,12 +7,16 @@
 class CustomDynamicArray
 {
 private: 
-	std::vector<std::string> listOfStrings; 
+	std::vector<std::string> listOfStrings; //what are the contents of this guy at the moment? 
 
 public: 
 	CustomDynamicArray() = delete; //what is the name of this "special" constructor (one which takes 0 args.)
 
 	CustomDynamicArray(const std::string& filename);
+
+	void shuffle(); 
+
+	void print(); 
 
 };
 

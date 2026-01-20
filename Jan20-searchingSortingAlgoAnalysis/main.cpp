@@ -3,6 +3,7 @@
 */
 
 #include "CustomDynamicArray.h"
+#include<algorithm>
 #include <iostream>
 
 
@@ -11,14 +12,11 @@ int main()
 
 	std::string theNameToSearchFor = "asdfadsfas";
 
-	std::string filename = "studentRoster.csv";
-	CustomDynamicArray customDynamicArray(filename);
+	std::string filenameForStudentRoster = "studentRoster.csv";
+	CustomDynamicArray students(filenameForStudentRoster);
 
+	students.shuffle(); 
 
-	std::vector<std::string> listOfStrings;
-
-	//listOfStrings.
-
-
+	students.print(); 
 }
 
