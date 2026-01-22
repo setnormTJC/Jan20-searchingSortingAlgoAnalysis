@@ -12,6 +12,7 @@ CustomDynamicArray::CustomDynamicArray(const std::string& filename)
 
 	if (!fin)
 	{
+
 		std::cout << "Could not find the file named " << filename << "\n";
 		__debugbreak();
 	}
@@ -27,13 +28,20 @@ CustomDynamicArray::CustomDynamicArray(const std::string& filename)
 
 void CustomDynamicArray::shuffle()
 {
-	std::mt19937 rng(std::random_device{}()); //this syntax is CRAZY (let's just use "abstraction")
 
-	std::uniform_int_distribution<int> distribution(0, listOfStrings.size());
+	std::mt19937 rng(std::random_device{}()); //this syntax is CRAZY (let's just use "abstraction")
+	std::uniform_int_distribution<int> distribution(0, listOfStrings.size() - 1);
 
 	for (int i = 0; i < listOfStrings.size(); ++i)
 	{
 		int randomIndex = distribution(rng); 
+
+		if (randomIndex < 0 || randomIndex > listOfStrings.size() - 1)
+		{
+			std::cout << "Out of bounds\n";
+			__debugbreak(); 
+		}
+
 		std::swap(listOfStrings[i], listOfStrings[randomIndex]);
 	}
 }
@@ -43,7 +51,37 @@ void CustomDynamicArray::print()
 	for (const std::string& currentString : listOfStrings)
 	{
 		std::cout << currentString << "\n";
+	} //Heisenbug
+}
+
+std::string CustomDynamicArray::getRandomStringInList()
+{
+	std::mt19937 rng(std::random_device{}()); //this syntax is CRAZY (let's just use "abstraction")
+	std::uniform_int_distribution<int> distribution(0, listOfStrings.size() - 1);
+	int randomIndex = distribution(rng); 
+
+	int otherRandomIndex = rand() % listOfStrings.size(); //this is a SIMPLER (but less "good") version 
+															//of the 3 lines directly above
+
+	std::string randomString = CustomDynamicArray::listOfStrings[distribution(rng)];
+
+	return randomString; //fix me!
+}
+
+bool CustomDynamicArray::sequentialSearch(const std::string& targetString)
+{
+
+	std::cout << "We are looking for: " << targetString << "\n";
+
+	for (int i = 0; i < listOfStrings.size(); ++i)
+	{
+		if (listOfStrings[i] == targetString) //the droid we're looking for
+		{
+			return true; //found
+		}
 	}
+
+	return false; 
 }
 
 
