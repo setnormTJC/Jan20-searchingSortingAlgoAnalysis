@@ -12,7 +12,6 @@ CustomDynamicArray::CustomDynamicArray(const std::string& filename)
 
 	if (!fin)
 	{
-
 		std::cout << "Could not find the file named " << filename << "\n";
 		__debugbreak();
 	}
@@ -23,12 +22,10 @@ CustomDynamicArray::CustomDynamicArray(const std::string& filename)
 		//std::cout << currentStudentName << "\n";
 		listOfStrings.push_back(currentStudentName);
 	}
-
 }
 
 void CustomDynamicArray::shuffle()
 {
-
 	std::mt19937 rng(std::random_device{}()); //this syntax is CRAZY (let's just use "abstraction")
 	std::uniform_int_distribution<int> distribution(0, listOfStrings.size() - 1);
 
@@ -84,4 +81,28 @@ bool CustomDynamicArray::sequentialSearch(const std::string& targetString)
 	return false; 
 }
 
+int CustomDynamicArray::binarySearch(const std::string& target)
+{
+	bool found = false;
+	int first = 0;
+	int last = static_cast<int>(listOfStrings.size()) - 1;
+	int middle = 0;
 
+	//
+	if (first <= last && !found)
+	{
+		middle = static_cast<int>(floor((first + last / 2)));
+
+		if (listOfStrings[middle] == target)
+			found = true;
+		else if (listOfStrings[middle] < target)
+			last = middle - 1;
+		else if (listOfStrings[middle] > target)
+			first = middle + 1;
+	}
+
+	if (found)
+		return middle;
+	else
+		return -1;
+}
