@@ -65,6 +65,29 @@ std::string CustomDynamicArray::getRandomStringInList()
 	return randomString; //fix me!
 }
 
+void CustomDynamicArray::sortListAlphabetically()
+{
+	if (listOfStrings.size() <= 1)
+	{
+		std::cout << "List is too small to be sorted.\n";
+		return;
+	}
+
+	for (int i = 0; i < (int)listOfStrings.size() - 1; ++i)
+	{
+		for (int j = 0; j < (int)listOfStrings.size() - 1; ++j)
+		{
+			if (listOfStrings[j + 1] < listOfStrings[j])
+			{
+				std::swap(listOfStrings[j + 1], listOfStrings[j]);
+			}
+		}
+	}
+
+	std::cout << "\nSorted list of strings:\n";
+	print();
+}
+
 bool CustomDynamicArray::sequentialSearch(const std::string& targetString)
 {
 
