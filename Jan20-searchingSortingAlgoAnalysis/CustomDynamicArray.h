@@ -2,25 +2,27 @@
 #include <vector>
 #include <string>
 
-
 /*This class is a "wrapper" around std::vector (the C++ standard library dynamic array implementation*/
 class CustomDynamicArray
 {
-private: 
+private:
 	std::vector<std::string> listOfStrings; //what are the contents of this guy at the moment? 
 
-public: 
+public:
 	CustomDynamicArray() = delete; //what is the name of this "special" constructor (one which takes 0 args.)
 
-	CustomDynamicArray(const std::string& filename);//
+	CustomDynamicArray(const std::string& filename);
 
-	void shuffle(); 
+	void shuffle();
 
-	void print(); 
+	void print();
 
-	std::string getRandomStringInList(); 
+	std::string getRandomStringInList();
+
+	void sortListAlphabetically();
 
 	/*This algorithm might be described as naive and brute-force*/
-	bool sequentialSearch(const std::string& targetString);
-};
+	bool sequentialSearch(const std::string& target);
 
+	int binarySearch(const std::string& target);
+};

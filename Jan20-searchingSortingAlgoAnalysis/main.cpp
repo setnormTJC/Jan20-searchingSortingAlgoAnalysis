@@ -3,69 +3,74 @@
 */
 
 #include "CustomDynamicArray.h"
-#include<algorithm>
-#include<chrono>
-#include<iomanip> //for std::scientific
+#include <algorithm>
+#include <chrono>
+#include <iomanip> //for std::scientific
 #include <iostream>
 
 
-
-class Car
-{
-
-};
-
 int main()
 {
-	//Car myCar; 
+	//Car mycar;
 
-	//std::cout << myCar;  //remember! this requires "operator overloading"
+	//std::cout << mycar;  //remember! this requires "operator overloading"
 
-	/*Simple timing demo*/
+	///*simple timing demo*/
 	//using namespace std::chrono; 
-	
-	auto startTime = std::chrono::high_resolution_clock::now(); 
+	//
+	//auto starttime = std::chrono::high_resolution_clock::now(); 
 
-	/*Question: how long does it take C++ to count to 1 billion?*/
-	for (int i = 0; i < 1'000'000; ++i)
-	{
-		//do nothing (aren't you being MEAN to your computer ...)
-	}
-	auto stopTime = std::chrono::high_resolution_clock::now(); 
+	//
+	///*question: how long does it take c++ to count to 1 billion?*/
+	//for (int i = 0; i < 1'000'000; ++i)
+	//{
+	//	//do nothing (aren't you being mean to your computer ...)
+	//}
+	//auto stoptime = std::chrono::high_resolution_clock::now(); 
 
-	std::cout << "It took this many nanoseconds (billionths of a second): \n";
-	
+	//std::cout << "it took this many nanoseconds (billionths of a second): \n";
 
-	auto theTimeItTook = (stopTime - startTime).count();
+	//auto thetimeittook = (stoptime - starttime).count();
 
-	std::cout << std::fixed << std::setprecision(2); 
-	std::cout << std::scientific << (float)theTimeItTook << "\n";
+	//std::cout << std::fixed << std::setprecision(2); 
+	//std::cout << std::scientific << (float)thetimeittook << "\n";
 
-
-	std::cin.get(); //forces user to enter a character before execution continues
+	//std::cin.get(); //forces user to enter a character before execution continues
 
 	std::string theNameToSearchFor = "asdfadsfas";
 
 	std::string filenameForStudentRoster = "studentRoster.csv";
 	CustomDynamicArray students(filenameForStudentRoster);
 
-	students.shuffle(); 
+	students.shuffle();
 
-	/*Let's do a selection search for a random name in this list*/
-	students.print(); 
+	std::cout << "Unsorted list of strings:\n";
+	students.print();
+
+	auto randomStudent = students.getRandomStringInList();
+
+	std::cout << "\n";
+	students.sortListAlphabetically();
 
 
-	auto randomStudent = students.getRandomStringInList(); 
+	std::cout << "\n";
 
-	std::cout << "\n\n\n";
-	if (students.sequentialSearch(randomStudent) == true)//searches IN SEQUENCE
+	if (students.sequentialSearch(randomStudent))
 	{
-		std::cout << "FOUND that student\n";
+		std::cout << "Student found via sequential search\n";
 	}
-
 	else
 	{
-		std::cout << "NOT found\n";
+		std::cout << "Student not found via sequential search\n";
+	}
+
+	if (students.binarySearch(randomStudent))
+	{
+		std::cout << "Student found via binary search\n";
+	}
+	else
+	{
+		std::cout << "Student not found via binary search\n\n";
 	}
 }
 

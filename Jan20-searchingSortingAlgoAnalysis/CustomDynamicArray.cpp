@@ -1,10 +1,10 @@
 #include "CustomDynamicArray.h"
 
 
-#include<algorithm>
-#include<fstream>
+#include <algorithm>
+#include <fstream>
 #include <iostream>
-#include<random> 
+#include <random> 
 
 CustomDynamicArray::CustomDynamicArray(const std::string& filename)
 {
@@ -12,7 +12,6 @@ CustomDynamicArray::CustomDynamicArray(const std::string& filename)
 
 	if (!fin)
 	{
-
 		std::cout << "Could not find the file named " << filename << "\n";
 		__debugbreak();
 	}
@@ -23,18 +22,16 @@ CustomDynamicArray::CustomDynamicArray(const std::string& filename)
 		//std::cout << currentStudentName << "\n";
 		listOfStrings.push_back(currentStudentName);
 	}
-
 }
 
 void CustomDynamicArray::shuffle()
 {
-
 	std::mt19937 rng(std::random_device{}()); //this syntax is CRAZY (let's just use "abstraction")
-	std::uniform_int_distribution<int> distribution(0, listOfStrings.size() - 1);
+	std::uniform_int_distribution<size_t> distribution(0, listOfStrings.size() - 1);
 
-	for (int i = 0; i < listOfStrings.size(); ++i)
+	for (size_t i = 0; i < listOfStrings.size(); ++i)
 	{
-		int randomIndex = distribution(rng); 
+		size_t randomIndex = distribution(rng); 
 
 		if (randomIndex < 0 || randomIndex > listOfStrings.size() - 1)
 		{
@@ -57,23 +54,45 @@ void CustomDynamicArray::print()
 std::string CustomDynamicArray::getRandomStringInList()
 {
 	std::mt19937 rng(std::random_device{}()); //this syntax is CRAZY (let's just use "abstraction")
-	std::uniform_int_distribution<int> distribution(0, listOfStrings.size() - 1);
-	int randomIndex = distribution(rng); 
+	std::uniform_int_distribution<size_t> distribution(0, listOfStrings.size() - 1);
+	size_t randomIndex = distribution(rng);
 
 	int otherRandomIndex = rand() % listOfStrings.size(); //this is a SIMPLER (but less "good") version 
 															//of the 3 lines directly above
 
-	std::string randomString = CustomDynamicArray::listOfStrings[distribution(rng)];
+	std::string randomString = CustomDynamicArray::listOfStrings[randomIndex];
 
 	return randomString; //fix me!
 }
 
+void CustomDynamicArray::sortListAlphabetically()
+{
+	if (listOfStrings.size() <= 1)
+	{
+		std::cout << "List is too small to be sorted.\n";
+		return;
+	}
+
+	for (size_t i = 0; i < listOfStrings.size() - 1; ++i)
+	{
+		for (size_t j = 0; j < listOfStrings.size() - 1; ++j)
+		{
+			if (listOfStrings[j + 1] < listOfStrings[j])
+			{
+				std::swap(listOfStrings[j + 1], listOfStrings[j]);
+			}
+		}
+	}
+
+	std::cout << "\nSorted list of strings:\n";
+	print();
+}
+
 bool CustomDynamicArray::sequentialSearch(const std::string& targetString)
 {
-
 	std::cout << "We are looking for: " << targetString << "\n";
 
-	for (int i = 0; i < listOfStrings.size(); ++i)
+	for (size_t i = 0; i < listOfStrings.size(); ++i)
 	{
 		if (listOfStrings[i] == targetString) //the droid we're looking for
 		{
@@ -84,4 +103,28 @@ bool CustomDynamicArray::sequentialSearch(const std::string& targetString)
 	return false; 
 }
 
+int CustomDynamicArray::binarySearch(const std::string& target)
+{
+	bool found = false;
+	int first = 0;
+	int last = static_cast<int>(listOfStrings.size()) - 1;
+	int middle = 0;
 
+	//
+	if (first <= last && !found)
+	{
+		middle = static_cast<int>(floor((first + last / 2)));
+
+		if (listOfStrings[middle] == target)
+			found = true;
+		else if (listOfStrings[middle] < target)
+			last = middle - 1;
+		else if (listOfStrings[middle] > target)
+			first = middle + 1;
+	}
+
+	if (found)
+		return middle;
+	else
+		return -1;
+}
