@@ -85,3 +85,39 @@ bool CustomDynamicArray::sequentialSearch(const std::string& targetString)
 }
 
 
+
+std::string CustomDynamicArray::binarySearch(const std::string& target, int startPosition, int endPosition)
+{
+	if (!std::is_sorted(listOfStrings.begin(), listOfStrings.end()))
+	{
+		std::cout << "Hey bro, that array ain't sorted ...\n";
+		return "";
+	}
+	//assert(std::is_sorted(names.begin(), names.end()); //givin' me LIP!
+
+	if (startPosition > endPosition)
+	{
+		return "Not found";
+	}
+
+	const int middle = floor((startPosition + endPosition) / 2); //like linoleum? 
+
+	if (listOfStrings[middle] == target)
+	{
+		return "Found it at index " + std::to_string(middle); //added "to_string" after class 
+	}
+
+	//log2(50) = x; 2^x = 50; log2(1000) = x -> 10 
+
+	if (listOfStrings[middle] > target) //is else preferable here??
+	{
+		return binarySearch(target, startPosition, middle - 1);
+	}
+
+	if (listOfStrings[middle] < target)
+	{
+		return binarySearch( target, middle + 1, endPosition);
+	}
+}
+
+

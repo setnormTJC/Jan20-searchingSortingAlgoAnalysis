@@ -12,7 +12,7 @@ private:
 public: 
 	CustomDynamicArray() = delete; //what is the name of this "special" constructor (one which takes 0 args.)
 
-	CustomDynamicArray(const std::string& filename);//
+	CustomDynamicArray(const std::string& filename);//parameterized constructor (it takes a dun, dun, dun parameter/arg/input)
 
 	void shuffle(); 
 
@@ -22,5 +22,8 @@ public:
 
 	/*This algorithm might be described as naive and brute-force*/
 	bool sequentialSearch(const std::string& targetString);
+
+	std::string binarySearch(const std::string& targetString, int startPositon, int endPosition); 
+
 };
 

@@ -3,20 +3,31 @@
 */
 
 #include "CustomDynamicArray.h"
-#include<algorithm>
+#include<algorithm> //included so we have access to std::is_sorted (among other functions) 
 #include<chrono>
 #include<iomanip> //for std::scientific
 #include <iostream>
 
 
 
-class Car
-{
-
-};
 
 int main()
 {
+	std::vector<int> sortedNums = { 1, 2, 3, -123123 };
+
+
+	std::cout << "Is the following list sorted??\n";
+	for (int i = 0; i < sortedNums.size(); ++i)
+	{
+		std::cout << sortedNums[i] << " ";
+	}
+
+	std::cout << "\n";
+
+	std::cout << std::boolalpha;
+	std::cout << std::is_sorted(sortedNums.begin(), sortedNums.end()) << "\n"; //true
+
+
 	//Car myCar; 
 
 	//std::cout << myCar;  //remember! this requires "operator overloading"
@@ -41,15 +52,14 @@ int main()
 	std::cout << std::fixed << std::setprecision(2); 
 	std::cout << std::scientific << (float)theTimeItTook << "\n";
 
+	//std::cin.get(); //forces user to enter a character before execution continues
 
-	std::cin.get(); //forces user to enter a character before execution continues
-
-	std::string theNameToSearchFor = "asdfadsfas";
+	std::string theNameToSearchFor; //CHANGE ME!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	std::string filenameForStudentRoster = "studentRoster.csv";
 	CustomDynamicArray students(filenameForStudentRoster);
 
-	students.shuffle(); 
+	students.shuffle(); ///DANGER WILL ROBINSON!!!!!!!!
 
 	/*Let's do a selection search for a random name in this list*/
 	students.print(); 
